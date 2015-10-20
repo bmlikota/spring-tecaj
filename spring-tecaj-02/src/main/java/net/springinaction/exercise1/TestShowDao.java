@@ -48,8 +48,8 @@ public class TestShowDao {
 		
 		// 4. update existing show
 		show.setName("Dummy Show " + System.currentTimeMillis());
-		showDao.update(show);
 		show.setSeatingPlanId(3);
+		showDao.update(show);
 		
 		// 5. retrive updated show
 		show = showDao.findById(existingShowId);

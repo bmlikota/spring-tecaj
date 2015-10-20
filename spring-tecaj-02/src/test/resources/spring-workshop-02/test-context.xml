@@ -15,7 +15,7 @@
     
     <context:property-placeholder location="classpath:/spring-workshop-02/config/database.test.properties" />
 
-	<import resource="database-context.xml" />
+	<import resource="test-database-context.xml" />
 	
     <!-- ================= daos ========================================== -->
     

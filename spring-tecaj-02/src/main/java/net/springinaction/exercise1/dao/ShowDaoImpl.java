@@ -17,7 +17,7 @@ public class ShowDaoImpl extends NamedParameterJdbcDaoSupport implements ShowDao
 	private static final String FIND_ALL_SQL = "SELECT show.id, show.name, genre_id, genre.name as genre_name, seating_plan_id FROM SHOW, GENRE WHERE genre_id=genre.id";
 	private static final String FIND_BY_ID_QUERY = "SELECT show.id, show.name, genre_id, genre.name as genre_name, seating_plan_id FROM SHOW, Genre WHERE genre_id=genre.id and show.id= :id";
 	private static final String FIND_BY_NAME_QUERY = "SELECT show.id, show.name, genre_id, genre.name as genre_name, seating_plan_id FROM SHOW, Genre WHERE genre_id=genre.id and show.name= :name";
-	private static final String INSERT_SQL = "INSERT INTO shows (name, genre_id, seating_plan_id) VALUES (:name, :genre_id, :seating_plan_id)";
+	private static final String INSERT_SQL = "INSERT INTO show (name, genre_id, seating_plan_id) VALUES (:name, :genre_id, :seating_plan_id)";
 	private static final String UPDATE_SQL = "UPDATE SHOW SET name=:name, genre_id=:genre_id, seating_plan_id=:seating_plan_id WHERE id=:id";
 	private static final String DELETE_ALL_SQL = "DELETE FROM SHOW";
 	private static final String FIND_BY_GENRE_SQL = "SELECT show.id, show.name, genre_id, genre.name as genre_name, seating_plan_id FROM SHOW, GENRE WHERE genre_id=genre.id AND genre_id= :genre_id";
@@ -66,9 +66,12 @@ public class ShowDaoImpl extends NamedParameterJdbcDaoSupport implements ShowDao
 	
 	public int update(Show show) {
 		log.info("Updating record with id=" + show.getId());
-		//TODO: finish me ...
-		
-		return 1;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(DbConstants.SHOW_ID, show.getId());
+		params.put(DbConstants.SHOW_GENRE_ID, show.getGenre().getId());
+		params.put(DbConstants.SHOW_NAME, show.getName());
+		params.put(DbConstants.SHOW_SEATING_PLAN_ID, show.getSeatingPlanId());
+		return getNamedParameterJdbcTemplate().update(UPDATE_SQL, params);
 	}
 
 	public void deleteAll() {

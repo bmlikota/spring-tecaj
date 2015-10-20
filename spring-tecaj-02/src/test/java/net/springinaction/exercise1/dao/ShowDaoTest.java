@@ -25,7 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("/spring-workshop-02/dbunit/show-data.xml")
+@DatabaseSetup("/spring-workshop-02/dbunit/show-data.xml") // puni bazu
 public class ShowDaoTest {
 	
 	@Autowired
@@ -39,6 +39,7 @@ public class ShowDaoTest {
 		
 		List<Show> shows = showDao.findAll();
 		assertThat(shows).isNotNull();
+		assertThat(shows.size()).isEqualTo(3);
 		
 	}
 	

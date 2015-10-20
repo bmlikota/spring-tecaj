@@ -12,30 +12,30 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class TestDatasource {
 
 	public static Logger LOG = LoggerFactory.getLogger(TestDatasource.class);
-	
+
 	private static final String TEST_QUERY = "select count(*) from GENRE";
-	
+
 	public static void main(String[] args) {
-		
+
 		// 1 setup programatically
 		BasicDataSource basicDs = new BasicDataSource();
 		basicDs.setDriverClassName("org.hsqldb.jdbcDriver");
 		basicDs.setUrl("jdbc:hsqldb:mem:tecaj");
-		//basicDs.setUrl("jdbc:hsqldb:hsql://localhost/tecaj");
+		// basicDs.setUrl("jdbc:hsqldb:hsql://localhost/tecaj");
 		basicDs.setUsername("sa");
 		basicDs.setPassword("");
-		
+
 		LOG.debug(">>> Switching to dataSource from applicationContext");
-		//2. retrive from ApplicationContext...
+		// 2. retrive from ApplicationContext...
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-workshop-02/exercise-1/ticket-ctx.xml");
-		
+
 		DataSource ds = (DataSource) ctx.getBean("dataSource");
 
 		// Perform simpe JdbcQuery
-		JdbcTemplate jt = new JdbcTemplate(ds);
+		// JdbcTemplate jt = new JdbcTemplate(ds);
+		JdbcTemplate jt = (JdbcTemplate) ctx.getBean("jdbcTemplate");
 		int count = jt.queryForInt(TEST_QUERY);
 		LOG.info("Done found total of " + count + " records");
 
-		
 	}
 }
