@@ -1,0 +1,8 @@
+package com.springinaction.knights;
+
+
+public interface Knight {
+  void embarkOnQuest() throws QuestException;
+  Quest getQuest();
+  void setWeapon(Weapon weapon);
+}

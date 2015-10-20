@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <!-- ========================================
+        WARNING:
+        This dataset depends on:
+    ============================================= -->
+
+	<!-- SEATING_PLANs -->
+	
+	<SEATING_PLAN ID="1" NAME="No seats - free space" />
+	<SEATING_PLAN ID="2" NAME="Free seats for all" />
+	<SEATING_PLAN ID="3" NAME="Reserved seats in front" />
+
+	<!-- GENRES -->
+          
+    <GENRE ID="1000001" NAME="Drama" />
+    <GENRE ID="1000002" NAME="Commedy" />
+    <GENRE ID="1000003" NAME="Cartoon" />
+    <GENRE ID="1000004" NAME="X-rated" />
+    <GENRE ID="1000005" NAME="SF - Science Fiction" />
+    <GENRE ID="1000006" NAME="Pop" />
+   	<GENRE ID="1000007" NAME="Punk rock" />
+   	<GENRE ID="1000008" NAME="Fantasy" />
+         
+	<!-- SHOWS -->
+         
+	<SHOW ID="1" GENRE_ID="1000001" NAME="Prohujalo s vihorom" SEATING_PLAN_ID="2" />
+    <SHOW ID="2" GENRE_ID="1000002" NAME="Što je muskarac bez brkova?" SEATING_PLAN_ID="2" />
+    <SHOW ID="3" GENRE_ID="1000005" NAME="The Martian: Bring him home" SEATING_PLAN_ID="2" />
+    <SHOW ID="4" GENRE_ID="1000007" NAME="Hladno pivo" SEATING_PLAN_ID="1" />
+	<SHOW ID="5" GENRE_ID="1000006" NAME="Severina - Nova godina 2015" SEATING_PLAN_ID="1" />
+	<SHOW ID="6" GENRE_ID="1000008" NAME="Povratak kralja" SEATING_PLAN_ID="2" />
+	<SHOW ID="7" GENRE_ID="1000006" NAME="Nina Badrić - Samo za Vas turneja" SEATING_PLAN_ID="3" />
+	<SHOW ID="8" GENRE_ID="1000001" NAME="Ben Hur" SEATING_PLAN_ID="2" />
+	<SHOW ID="9" GENRE_ID="1000005" NAME="X-Men" SEATING_PLAN_ID="2" />
+
+	<!-- Performers -->
+	<PERFORMER ID="1" NAME="Clarck Gable" P_TYPE="ACTOR"/>
+	<PERFORMER ID="2" NAME="Vivien Leigh" P_TYPE="ACTOR"/>
+	<PERFORMER ID="3" NAME="Charlton Heston" P_TYPE="ACTOR"/>
+	<PERFORMER ID="4" NAME="Viggo Mortensen" P_TYPE="ACTOR"/>
+	<PERFORMER ID="5" NAME="Hladno Pivo" P_TYPE="BAND"/>
+	<PERFORMER ID="6" NAME="Severina Vučković" P_TYPE="SINGER"/>
+	<PERFORMER ID="7" NAME="Nina Badrić" P_TYPE="SINGER"/>
+	<PERFORMER ID="8" NAME="Matt Damon" P_TYPE="ACTOR"/>
+	<PERFORMER ID="9" NAME="Elijah Wood" P_TYPE="ACTOR"/>
+	<PERFORMER ID="10" NAME="Ian McKellen" P_TYPE="ACTOR"/>
+	<PERFORMER ID="11" NAME="Patrick Stewart" P_TYPE="ACTOR"/>
+	
+	<!-- Join table -->
+	<SHOW_PERFORMER SHOW_ID="1" PERFORMER_ID="1" />
+	<SHOW_PERFORMER SHOW_ID="1" PERFORMER_ID="2" />
+	<SHOW_PERFORMER SHOW_ID="3" PERFORMER_ID="8" />
+	<SHOW_PERFORMER SHOW_ID="4" PERFORMER_ID="5" />
+	<SHOW_PERFORMER SHOW_ID="5" PERFORMER_ID="6" />
+	<SHOW_PERFORMER SHOW_ID="6" PERFORMER_ID="4" />
+	<SHOW_PERFORMER SHOW_ID="6" PERFORMER_ID="10" />
+	<SHOW_PERFORMER SHOW_ID="7" PERFORMER_ID="7" />
+	<SHOW_PERFORMER SHOW_ID="8" PERFORMER_ID="3" />
+	<SHOW_PERFORMER SHOW_ID="9" PERFORMER_ID="10" />
+	<SHOW_PERFORMER SHOW_ID="9" PERFORMER_ID="11" />
+	
+</dataset>

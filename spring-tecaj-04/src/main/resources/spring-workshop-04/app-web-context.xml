@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<!-- ======================================================= -->
+	<!-- Application Context file for web application			 -->
+	<!-- ======================================================= -->
+
+	<context:property-placeholder location="classpath:/spring-workshop-04/config/app.local.properties" />
+	
+	<beans profile="local">
+		<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+			<property name="driverClassName" value="${database.driverClassName}" />
+			<property name="url" value="${database.url}" />
+			<property name="username" value="${database.username}" />
+			<property name="password" value="${database.password}" />
+		</bean>
+
+		<jdbc:initialize-database data-source="dataSource">
+			<jdbc:script location="classpath:/spring-workshop-03/database/schema.${database.type}.sql" />
+			<jdbc:script location="classpath:/spring-workshop-03/database/insert_data.${database.type}.sql" />
+		</jdbc:initialize-database>
+	</beans>
+	
+	<beans profile="test">
+		<context:property-placeholder location="classpath:/spring-workshop-04/config/app.test.properties" />
+		
+		<jee:jndi-lookup id="dataSource" jndi-name="jdbc/h2tecaj" resource-ref="true" cache="false" />
+		
+		<jdbc:initialize-database data-source="dataSource">
+			<jdbc:script location="classpath:/spring-workshop-03/database/schema.${database.type}.sql" />
+			<jdbc:script location="classpath:/spring-workshop-03/database/insert_data.${database.type}.sql" />
+		</jdbc:initialize-database>
+	</beans>
+	
+	<beans>
+		<import resource="classpath:/spring-workshop-03/jpa-context.xml" />
+	</beans>
+	
+</beans>

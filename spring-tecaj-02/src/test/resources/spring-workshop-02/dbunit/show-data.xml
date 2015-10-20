@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <!-- ========================================
+        WARNING:
+        This dataset depends on:
+    ============================================= -->
+
+	<!-- SEATING_PLANs -->
+	
+	<SEATING_PLAN ID="1" NAME="No seats - free space" />
+	<SEATING_PLAN ID="2" NAME="Free seats for all" />
+	<SEATING_PLAN ID="3" NAME="Reserved seats in front" />
+
+   <!-- GENRES -->
+          
+    <GENRE ID="1" NAME="Commedy" />
+    <GENRE ID="2" NAME="Horror" />
+    <GENRE ID="3" NAME="Cartoon" />
+    <GENRE ID="4" NAME="X-rated" />
+    <GENRE ID="5" NAME="SF - Science Fiction" />
+         
+   <!-- SHOWS -->
+         
+	<SHOW ID="1" GENRE_ID="1" NAME="Prohujalo s vihorom" SEATING_PLAN_ID="1" />
+    <SHOW ID="2" GENRE_ID="1" NAME="Što je muskarac bez brkova?" SEATING_PLAN_ID="1" />
+    <SHOW ID="3" GENRE_ID="5" NAME="Life on Mars" SEATING_PLAN_ID="1" />
+   
+</dataset>

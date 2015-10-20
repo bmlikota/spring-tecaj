@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:data="http://www.springframework.org/schema/data/jpa"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    
+    <!-- =============================================================== -->
+    <!--  Database datasource configuration                              -->
+    <!--  (final version)                                                -->
+    <!-- =============================================================== -->
+    
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:/spring-workshop-03/database/schema.${database.type}.sql" />
+		<!-- <jdbc:script location="classpath:/spring-workshop-03/database/insert_data.${database.type}.sql" /> -->
+	</jdbc:initialize-database>
+     
+    <!-- =============================================================== -->
+    <!-- Jpa configuration -->
+    <!-- =============================================================== -->
+    
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <context:property-placeholder location="classpath:spring-workshop-03/config/database.properties" />
+     
+    <context:annotation-config />
+    <context:component-scan base-package="net.springinaction.exercise1.model" annotation-config="true" />
+    <context:component-scan base-package="net.springinaction.exercise1.dao" annotation-config="true" />
+    <context:component-scan base-package="net.springinaction.exercise1.service" annotation-config="true" />
+    
+    <data:repositories base-package="net.springinaction.exercise1.dao.repository" repository-impl-postfix="Impl" />
+ 
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="${hibernate.show.sql}" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="dataSource" >
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>net.springinaction.exercise1.model</value>
+            </list>
+        </property>
+        <property name="jpaDialect" ref="jpaDialect" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaPropertyMap" ref="jpaPropertyMap" />
+    </bean>
+
+    <util:map id="jpaPropertyMap">
+        <entry key="hibernate.dialect" value="${database.hibernate.dialect}" />
+        <entry key="hibernate.default_schema" value="${database.schemaName}" />
+        <entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
+        <entry key="hibernate.use_sql_comments" value="${hibernate.use_sql_comments}" />
+        <entry key="hibernate.jdbc.use_get_generated_keys" value="false" />
+        <entry key="hibernate.hbm2ddl.auto" value="none" />
+        <entry key="hibernate.show.sql" value="${hibernate.show.sql}" />
+        <entry key="hibernate.bytecode.provider" value="cglib" />
+        <entry key="hibernate.connection.release_mode" value="after_transaction" />
+        <entry key="hibernate.globally_quoted_identifiers" value="false" />
+        <entry key="generate_statistics" value="${generate_statistics}" />
+    </util:map>
+    
+</beans>

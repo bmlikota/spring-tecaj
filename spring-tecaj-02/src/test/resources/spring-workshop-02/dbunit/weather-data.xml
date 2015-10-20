@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <!-- ========================================
+        WARNING:
+        This dataset depends on:
+    ============================================= -->
+
+    
+   <!-- WEATHER -->
+   <WEATHER_FORECAST ID="0" PLACE="Zagreb" FORECAST="Suncano" />
+   <WEATHER_FORECAST ID="1" PLACE="Zagreb" FORECAST="Jako suncano" />
+   <WEATHER_FORECAST ID="2" PLACE="Zagreb" FORECAST="Jako jako suncano" />
+   
+   <WEATHER_FORECAST ID="0" PLACE="North pole" FORECAST="Snijeg" />
+   <WEATHER_FORECAST ID="1" PLACE="North pole" FORECAST="oblacno" />
+   <WEATHER_FORECAST ID="2" PLACE="North pole" FORECAST="Snijeg" />
+   
+</dataset>
