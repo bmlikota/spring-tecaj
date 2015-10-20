@@ -18,11 +18,14 @@ import org.springframework.stereotype.Component;
 @Component(value = "knight")
 public class BraveKnight implements Knight, BeanNameAware, BeanFactoryAware, ApplicationContextAware, InitializingBean, DisposableBean {
 	@Autowired
-	@Qualifier("rescueDamselQuest")
+	@Qualifier("slayDragonQuest")
 	private Quest quest;
 	
 	@Autowired
 	private Minstrel minstrel;
+
+	@Autowired
+	Apprentice apprentice;
 	
 	private String beanName;
 	
@@ -37,13 +40,16 @@ public class BraveKnight implements Knight, BeanNameAware, BeanFactoryAware, App
 	
 	public void embarkOnQuest() throws QuestException {
 		try {
-	    	minstrel.singBeforeQuest();
-	    	quest.embark();
-	    	minstrel.singAfterQuest();   
-	    } catch (Exception e) {
-	    	minstrel.singAfterQuestFailed();
-	    }	
+			quest.embark();
+		} catch (QuestException e) {
+			askForHelp();
+		}
 	}
+
+	// @Override
+	// public void embarkOnQuest2() throws QuestException {
+	// embarkOnQuest();
+	// }
 	
 	@Override
 	public void setBeanName(String name) {
@@ -86,6 +92,10 @@ public class BraveKnight implements Knight, BeanNameAware, BeanFactoryAware, App
 	@PreDestroy
 	public void customDestroy() {
 		System.out.println( "Custom destroy!");
+	}
+
+	void askForHelp() {
+		apprentice.helpKnight(quest);
 	}
 
 }

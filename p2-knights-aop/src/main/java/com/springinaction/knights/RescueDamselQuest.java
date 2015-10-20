@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 public class RescueDamselQuest implements Quest {
   public void embark() throws QuestException {
     System.out.println("Rescuing damsel in distress");
-    //throw new QuestException();
+//    throw new QuestException();
   }
 }

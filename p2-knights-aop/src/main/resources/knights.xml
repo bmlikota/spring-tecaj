@@ -10,22 +10,19 @@
 	<context:component-scan base-package="com.springinaction.knights" />
 	<context:annotation-config />
 
-	<bean id="knightDecorator" class="com.springinaction.knights.KnightDecorator" />
+<!-- 	<bean id="knightDecorator" class="com.springinaction.knights.KnightDecorator" /> -->
 	
-	<bean id="minstrel" class="com.springinaction.knights.Minstrel" />
+<!-- 	<bean id="minstrel" class="com.springinaction.knights.Minstrel" /> -->
 	
-<!-- 	
-	<aop:config>
-		<aop:aspect ref="minstrel" >
-			<aop:before method="singBeforeQuest" pointcut="execution(* *.embarkOnQuest(..))"/>
-			<aop:after-returning method="singAfterQuest" pointcut="execution(* *.embarkOnQuest(..))"/>
-			<aop:after-throwing method="singAfterQuestFailed" pointcut="execution(* *.embarkOnQuest(..))"/>
-		</aop:aspect>
-	</aop:config>
--->
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut expression="execution(* *.embarkOnQuest(..))" id="knightEmbarkOnQuest"/> -->
+<!-- 		<aop:aspect ref="minstrel" > -->
+<!-- 			<aop:before method="singBeforeQuest" pointcut-ref="knightEmbarkOnQuest"/> -->
+<!-- 			<aop:after-returning method="singAfterQuest" pointcut="execution(* com.springinaction.knights.Knight.embarkOnQuest(..))"/> -->
+<!-- 			<aop:after-throwing method="singAfterQuestFailed" pointcut="execution(* com.springinaction.knights.Knight.embarkOnQuest(..))"/> -->
+<!-- 		</aop:aspect> -->
+<!-- 	</aop:config> -->
 
-<!-- 
 	<aop:aspectj-autoproxy />
- -->
  
 </beans>
