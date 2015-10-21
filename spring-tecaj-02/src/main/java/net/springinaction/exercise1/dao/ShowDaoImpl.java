@@ -20,6 +20,7 @@ public class ShowDaoImpl extends NamedParameterJdbcDaoSupport implements ShowDao
 	private static final String INSERT_SQL = "INSERT INTO show (name, genre_id, seating_plan_id) VALUES (:name, :genre_id, :seating_plan_id)";
 	private static final String UPDATE_SQL = "UPDATE SHOW SET name=:name, genre_id=:genre_id, seating_plan_id=:seating_plan_id WHERE id=:id";
 	private static final String DELETE_ALL_SQL = "DELETE FROM SHOW";
+	private static final String DELETE_SQL = "DELETE FROM SHOW WHERE id = :id";
 	private static final String FIND_BY_GENRE_SQL = "SELECT show.id, show.name, genre_id, genre.name as genre_name, seating_plan_id FROM SHOW, GENRE WHERE genre_id=genre.id AND genre_id= :genre_id";
 	
 	public Show findById(long id) {
@@ -76,13 +77,14 @@ public class ShowDaoImpl extends NamedParameterJdbcDaoSupport implements ShowDao
 
 	public void deleteAll() {
 		log.info("Deleting all data from table");
-		//TODO: finish me ...
-		
+		getNamedParameterJdbcTemplate().update(DELETE_ALL_SQL, new HashMap<String, Object>());
 	}
-	
+
 	public void delete(long id) {
 		log.info("Deleting record with id=" + id);
-		//TODO: finish me ...
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(DbConstants.SHOW_ID, id);
+		getNamedParameterJdbcTemplate().update(DELETE_SQL, params);
 		
 	}
 

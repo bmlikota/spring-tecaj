@@ -28,7 +28,9 @@ public class GenreDaoImpl extends JdbcDaoSupport implements GenreDao {
 	private static final String UPDATE_SQL = "UPDATE genre SET name= ? WHERE id= ?";
 	private static final String INSERT_SQL = "insert into genre (id, name) values (?, ?)";
 	private static final String INSERT_SQL_2 = "insert into genre (name) values (?)";
-	
+
+	private static SqlUpdate updateGenre;
+
 	public Genre findById(Long id) {
 		GenreMappingQuery custQuery = new GenreMappingQuery(
 			getDataSource(), 
@@ -51,16 +53,22 @@ public class GenreDaoImpl extends JdbcDaoSupport implements GenreDao {
 
 	public int update(Genre genre) {
 		//1. construct SqlUpdate object
-		SqlUpdate updateGenre = new SqlUpdate();
+		if (updateGenre == null) {
+			prepareUpdateQuery();
+		}
+
+		//2. execute update...
+		Object[] parameters = new Object[] {genre.getName(), genre.getId()};
+		return updateGenre.update(parameters);
+	}
+
+	private void prepareUpdateQuery() {
+		updateGenre = new SqlUpdate();
 		updateGenre.setDataSource(getDataSource());
 		updateGenre.setSql(UPDATE_SQL);
 		updateGenre.declareParameter(new SqlParameter("name", Types.VARCHAR));
 		updateGenre.declareParameter(new SqlParameter("id", Types.INTEGER));
 		updateGenre.compile();
-
-		//2. execute update...
-		Object[] parameters = new Object[] {genre.getName(), genre.getId()};
-		return updateGenre.update(parameters);
 	}
 
 

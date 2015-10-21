@@ -1,33 +1,58 @@
 package net.springinaction.exercise2;
 
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import java.util.HashMap;
+import java.util.Map;
 
-public class WeatherDaoImpl extends JdbcDaoSupport implements WeatherDao {
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+
+public class WeatherDaoImpl extends NamedParameterJdbcDaoSupport implements WeatherDao {
 
 	public String forDate(String place, int day) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT forecast FROM weather_forecast WHERE id = :id AND place = :place";
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", day);
+		params.put("place", place);
+
+		String forecast = getNamedParameterJdbcTemplate().queryForObject(sql, params, String.class);
+
+		if (forecast == null || forecast.equals("")) {
+			throw new RuntimeException("There is no forecast!");
+		}
+
+		return forecast;
+
 	}
 
 	public int setForcast(String place, int day, String forecast) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO weather_forecast (id, place, forecast) VALUES (:id, :place, :forecast)";
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("place", place);
+		params.put("id", day);
+		params.put("forecast", forecast);
+
+		int ret = getNamedParameterJdbcTemplate().update(sql, params);
+
+		return ret;
 	}
 
 	public String[] threeDays(String place) throws WeatherException {
-		// TODO Auto-generated method stub
-		return null;
+		String[] forecastArr = new String[3];
+
+		forecastArr[WeatherDao.TODAY] = forDate(place, WeatherDao.TODAY);
+		forecastArr[WeatherDao.TOMORROW] = forDate(place, WeatherDao.TOMORROW);
+		forecastArr[WeatherDao.TODAY_PLUS_2] = forDate(place, WeatherDao.TODAY_PLUS_2);
+
+		return forecastArr;
 	}
 
 	public String today(String place) {
-		// TODO Auto-generated method stub
-		return null;
+		return forDate(place, WeatherDao.TODAY);
 	}
 
 	public String tomorrow(String place) {
-		// TODO Auto-generated method stub
-		return null;
+		return forDate(place, WeatherDao.TOMORROW);
 	}
 
-	
 }
