@@ -11,6 +11,7 @@ import net.springinaction.exercise2.WeatherException;
  * @author domagoj
  *
  */
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class WeatherServiceAnnotatedImpl implements WeatherService {
 
 	protected WeatherDao weatherDao;
@@ -38,11 +39,15 @@ public class WeatherServiceAnnotatedImpl implements WeatherService {
 		setTomorrow(weatherData);
 		setDayAfterTomorrow(weatherData);
 	}
-	
+
+	public void setForecast2(WeatherData weatherData) {
+		setForecast(weatherData);
+	}
+
 	protected void setTomorrow(WeatherData weatherData) {
 		weatherDao.setForcast(weatherData.getPlace(), WeatherDao.TOMORROW, weatherData.getWeatherTomorrow());
 	}
-	
+
 	protected void setToday(WeatherData weatherData) {
 		weatherDao.setForcast(weatherData.getPlace(), WeatherDao.TODAY, weatherData.getWeatherToday());
 	}

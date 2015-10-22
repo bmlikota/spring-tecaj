@@ -41,7 +41,7 @@ public class GenreFormValidator implements Validator {
     		log.debug("Submitted Genre name is empty ---> REJECTING");
     	} else {
     		//2. check for uniqueness of the genre name ...
-    		form.setName(StringUtils.trimAllWhitespace(form.getName()));
+    		form.setName(form.getName().trim());
     		Genre genreFromDb = genreService.findByName(form.getName());
     		
     		if (genreFromDb == null) {

@@ -18,7 +18,7 @@
 
     <import resource="../database-context.xml" />
 
-	<bean id="weatherDao" class="net.springinaction.exercise2.MyWeatherDaoDbImpl">
+	<bean id="weatherDao" class="net.springinaction.exercise2.WeatherDaoImpl">
         <property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -29,6 +29,7 @@
 	<bean id="weatherServiceTs" class="net.springinaction.exercise3.WeatherServiceTransactionSupportedImpl">
         <property name="weatherDao" ref="weatherDao" />
 		<property name="transactionTemplate" >
+		<!-- inner bean -->
 			<bean class="org.springframework.transaction.support.TransactionTemplate">
 				<property name="transactionManager" ref="transactionManager"/>
 			</bean>

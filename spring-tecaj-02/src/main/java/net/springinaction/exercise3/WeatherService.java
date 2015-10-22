@@ -5,6 +5,8 @@ import net.springinaction.exercise2.WeatherException;
 public interface WeatherService {
 
 	void setForecast(WeatherData weatherData);
+
+	void setForecast2(WeatherData weatherData);
 	
 	String tomorrow (String place);
 	String today(String place);

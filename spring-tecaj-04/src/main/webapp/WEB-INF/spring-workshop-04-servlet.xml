@@ -17,6 +17,24 @@
 	
 	<context:component-scan base-package="com.springinaction.web" />
 
+	<!-- ========== start: i18n ========== -->
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    	<property name="defaultLocale" value="en" />
+	</bean>
+	
+	<mvc:interceptors>
+    	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+    		<property name="paramName" value="language"></property>
+    	</bean>
+	</mvc:interceptors>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="message" />
+	</bean>
+	
+	<!-- ========== end: i18n ========== -->
+		
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix" value="/WEB-INF/templates/" />

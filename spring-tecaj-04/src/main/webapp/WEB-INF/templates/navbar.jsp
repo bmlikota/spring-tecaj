@@ -35,6 +35,8 @@
 					</li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><c:out value="${userFullName}" /><span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="<%=basePath%>/?language=hr">Hrvatski</a></li>
+							<li><a href="<%=basePath%>/?language=en">English</a></li>
 							<li><a href="<%=basePath%>/logout">Logout</a></li>
 						</ul>
 					</li>

@@ -21,7 +21,9 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	public String[] threeDays(String place) throws WeatherException {
-		String[] forecast = weatherDao.threeDays(place);
+		String[] forecast = null;
+
+		forecast = weatherDao.threeDays(place);
 		if (forecast == null) {
 			throw new WeatherException("No data found for: " + place);
 		}
@@ -32,6 +34,9 @@ public class WeatherServiceImpl implements WeatherService {
 		setToday(weatherData);
 		setTomorrow(weatherData);
 		setDayAfterTomorrow(weatherData);
+	}
+
+	public void setForecast2(WeatherData weatherData) {
 	}
 	
 	protected void setTomorrow(WeatherData weatherData) {

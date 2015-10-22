@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
@@ -22,21 +24,31 @@
 	<div class="container theme-showcase" >
 		<a href="<%=basePath%>/genres/"> << Return to Genre list</a>
 		
+		<%@include file="../status-message.jsp" %>
+		
 		<div class="page-header">
  			<h1>Genre (${genreForm.genreId})</h1>
       	</div>
+
+      	<form:form action="${pageContext.request.contextPath}/genres/save" commandName="genreForm" cssClass="form-inline" method="POST">
+      	<spring:bind path="name">
       	<div class="row">
       		<div class="col-md-6">
-      			<form class="form-inline" action="<%=basePath%>/genres/save" method="POST">
   					<div class="form-group">
     					<label for="name">Genre name:</label>
     					<input type="text" class="form-control" id="name" name="name" value="${genreForm.name}" placeholder="Name of the Genre">
   					</div>
   					<button type="submit" class="btn btn-primary">Change name</button>
   					<input type="hidden" id="genreId" name="genreId" value="${genreForm.genreId}">
-				</form>
       		</div>
       	</div>
+      	<div class="row">
+      		<div class="col-md-6">
+      			<form:errors path="name" cssClass="bg-danger" element="p"/>
+      		</div>
+      	</div>
+      	</spring:bind>
+		</form:form>
 		<div class="row">
 			<div class="col-md-12">
       			<h3>Available shows:</h3>

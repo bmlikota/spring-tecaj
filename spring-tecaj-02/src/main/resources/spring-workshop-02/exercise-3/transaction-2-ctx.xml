@@ -22,7 +22,7 @@
     <import resource="../database-context.xml" />
 
 
-	<bean id="weatherDao" class="net.springinaction.exercise2.MyWeatherDaoDbImpl">
+	<bean id="weatherDao" class="net.springinaction.exercise2.WeatherDaoImpl">
 		 <property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -38,7 +38,9 @@
 	<!--  no-rollback-for="java.lang.UnsupportedOperationException" -->
 	<tx:advice id="txAdvice">
 		<tx:attributes>
+<!-- 			<tx:method name="setForecast" propagation="REQUIRED" no-rollback-for="java.lang.UnsupportedOperationException" /> ubijem transakciju -->
 			<tx:method name="setForecast" propagation="REQUIRED" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" /> <!-- ubrzava transakciju -->
 		</tx:attributes>
 	</tx:advice>
 		

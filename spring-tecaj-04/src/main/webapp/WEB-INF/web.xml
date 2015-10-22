@@ -31,6 +31,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>spring-workshop-04</servlet-name>
 		<url-pattern>/</url-pattern>

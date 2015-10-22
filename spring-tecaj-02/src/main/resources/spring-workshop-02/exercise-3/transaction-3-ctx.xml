@@ -23,7 +23,7 @@
     <import resource="../database-context.xml" />
 
 
-	<bean id="weatherDao" class="net.springinaction.exercise2.MyWeatherDaoDbImpl">
+	<bean id="weatherDao" class="net.springinaction.exercise2.WeatherDaoImpl">
 		 <property name="dataSource" ref="dataSource" />
 	</bean>
 

@@ -18,7 +18,7 @@
 	<!-- ======================================================= -->
 	<!-- Application Context file for web application			 -->
 	<!-- ======================================================= -->
-
+	
 	<context:property-placeholder location="classpath:/spring-workshop-04/config/app.local.properties" />
 	
 	<beans profile="local">

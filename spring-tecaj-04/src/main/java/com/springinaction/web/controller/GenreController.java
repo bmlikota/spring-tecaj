@@ -1,10 +1,15 @@
 package com.springinaction.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springinaction.web.form.GenreForm;
 import com.springinaction.web.form.GenreSearchForm;
@@ -76,8 +82,11 @@ public class GenreController extends BaseController {
 	}
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST )
-	public final String saveGenre(@Valid GenreForm genreForm, BindingResult bindingResult, ModelMap modelMap) {
+	public final String saveGenre(@Valid GenreForm genreForm, BindingResult bindingResult, ModelMap modelMap, final RedirectAttributes redirectAttributes) {
+		Map<String, String> messages = null;
 		if (bindingResult.hasErrors()) {
+			messages = addMessage("bg-danger", "genre.validation.failed");
+			modelMap.addAttribute("messages", messages);
 			if (genreForm.getGenreId() == null) {
 				modelMap.addAttribute("genreForm", genreForm);
 				return "genre/genre-new";
@@ -90,8 +99,26 @@ public class GenreController extends BaseController {
 		genre.setName(genreForm.getName());
 		genre.setId(genreForm.getGenreId());
 		Genre savedGenre = genreService.save(genre);
+		
 		log.info("---> SAVED Genre={}", savedGenre);
+		
+		messages = addMessage("bg-success", "genre.saved.success");
+		modelMap.addAttribute("messages", messages);
 		return renderGenreDetails(new GenreForm(savedGenre), modelMap);
+	}
+	
+	@RequestMapping(value="/delete/{genreId}", method = RequestMethod.GET )
+	public final String delete(@PathVariable Long genreId, final ModelMap modelMap, final RedirectAttributes redirectAttributes) {
+		Map<String, String> messages = null;
+		try {
+			genreService.delete(genreId);
+			messages = addMessage("bg-success", "genre.delete.success");
+		} catch (DataIntegrityViolationException ex) {
+			log.debug("Failed to delete genre some some show records depend on it.");
+			messages = addMessage("bg-danger", "genre.delete.failed.unique-constraint-violation");
+		}
+		redirectAttributes.addFlashAttribute("messages", messages);
+		return "redirect:/genres/";
 	}
 	
 	// --- model and binder methods -------------------------------------------

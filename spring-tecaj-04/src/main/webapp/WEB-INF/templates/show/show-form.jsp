@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
@@ -7,7 +9,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>Genre list page</title>
+<title>Create new show</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -20,50 +22,38 @@
 	<%@include file="../navbar.jsp" %>
 	
 	<div class="container theme-showcase" >
+		<a href="<%=basePath%>/shows/"> << Return to Show list</a>
 		
 		<%@include file="../status-message.jsp" %>
 		
 		<div class="page-header">
- 			<h1>Genres</h1>
+ 			<h1>Create New Show</h1>
       	</div>
+      	
       	<div class="row">
       		<div class="col-md-6">
-      			<form class="form-inline" action="<%=basePath%>/genres/" method="POST">
-  					<div class="form-group">
-    					<label for="searchName">Genre name</label>
-    					<input type="text" class="form-control" id="searchName" name="searchName" value="${genreSearchForm.searchName}"" placeholder="searchName">
-  					</div>
-  					<button type="submit" class="btn btn-default">Search</button>
-				</form>
+		      	<form:form action="${pageContext.request.contextPath}/shows/save" commandName="showForm" method="POST">
+		  			<div class="form-group">
+		    			<label for="name">Show name:</label>
+		    			<input type="text" class="form-control" id="name" name="name" placeholder="Show name">
+		  			</div>
+		  			<div class="form-group">
+		    			<label for="genreId">Genre:</label>
+		    			<select class="form-control" id="genreId" name="genreId">
+		  					<c:forEach items="${genres}" var="genre"><option value="${genre.id}">${genre.name}</option></c:forEach>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="genreId">Seating plan:</label>
+		    			<select class="form-control" id="seatingPlanId" name="seatingPlanId">
+		  					<c:forEach items="${seatingPlans}" var="plan"><option value="${plan.id}">${plan.name}</option></c:forEach>
+						</select>
+					</div>
+		  			<button type="submit" class="btn btn-primary">Save</button>
+		      	</form:form>
       		</div>
-      		<div class="col-md-6">
-      			<form class="form-inline" action="<%=basePath%>/genres/create" method="GET">
-  					<button type="submit" class="btn btn-primary">Create new Genre</button>
-				</form>
-      		</div>
-      	</div>
-      	<div class="row">
-        <div class="col-md-6">
-          <table class="table">
-          	<thead>
-          		<th>Id</th>
-          		<th>Genre name</th>
-          		<th></th>
-          	</thead>
-			<tbody>
-			<c:forEach items="${result}" var="genre">
-				<tr>
-					<td>${genre.id}</td>
-					<td><b><a href="<%=basePath%>/genres/${genre.id}">${genre.name}</a></b></td>
-					<td><a href="<%=basePath%>/genres/delete/${genre.id}" title="Delete record"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></a></span> </td>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-		</div>
-		</div>
-		
-	</div><!-- /.container -->
+      	</div><!-- /.row -->
+   	</div><!-- /.container -->
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

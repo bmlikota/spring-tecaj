@@ -61,9 +61,13 @@
           		</div>
 	        </div><!-- /.col-sm-4 -->
     	</div>
-    	
+    	<div class="row">
+    		<div class="col-sm-12">
+    			Current Locale : ${pageContext.response.locale}
+    		</div>
+    	</div>
 	</div><!-- /.container -->
-
+	
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

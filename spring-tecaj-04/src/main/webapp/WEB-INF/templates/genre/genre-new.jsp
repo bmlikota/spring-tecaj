@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	String path = request.getContextPath();
@@ -8,7 +9,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>Spring Workshop starting page</title>
+<title>Create new Genre</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -23,13 +24,17 @@
 	<div class="container theme-showcase" >
 		<a href="<%=basePath%>/genres/"> << Return to Genre list</a>
 		
+		<%@include file="../status-message.jsp" %>
+		
 		<div class="page-header">
  			<h1>Create New Genre</h1>
       	</div>
+      	
       	<form:form action="${pageContext.request.contextPath}/genres/save" commandName="genreForm" cssClass="form-inline" method="POST">
+      	<spring:bind path="name">
       	<div class="row">
       		<div class="col-md-6">
-      			<div class="form-group">
+      			<div class="form-group has-feedback ${status.error ? 'has-error' : ''}">
     				<label for="name">Genre name:</label>
     				<input type="text" class="form-control" id="name" name="name" value="${genreForm.name}" placeholder="Name of the Genre">
   				</div>
@@ -38,9 +43,12 @@
       		</div>
       	</div>
       	<div class="row">
-      		<form:errors path="name" cssClass="error"/>
+      		<div class="col-md-6">
+      			<form:errors path="name" cssClass="bg-danger" element="p"/>
+      		</div>
       	</div>
-		</form:form>
+      	</spring:bind>
+      	</form:form>
 	</div><!-- /.container -->
 
 	<!-- Bootstrap core JavaScript

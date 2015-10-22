@@ -1,5 +1,8 @@
 package com.springinaction.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
@@ -19,4 +22,13 @@ public abstract class BaseController {
 	public String getUserFullName(){
 	    return "Janko Strižić";
 	}
+	
+	//--- flash messages util methods ------
+	
+	public Map<String, String> addMessage(String severity, String message) {
+		Map<String, String> messages = new HashMap<String, String>();
+		messages.put(severity, message);
+		return messages;
+	}
+	
 }

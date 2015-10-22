@@ -7,7 +7,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>Genre list page</title>
+<title>Show list page</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -24,38 +24,42 @@
 		<%@include file="../status-message.jsp" %>
 		
 		<div class="page-header">
- 			<h1>Genres</h1>
+ 			<h1>Shows</h1>
       	</div>
       	<div class="row">
       		<div class="col-md-6">
-      			<form class="form-inline" action="<%=basePath%>/genres/" method="POST">
+      			<form class="form-inline" action="<%=basePath%>/shows/" method="POST">
   					<div class="form-group">
-    					<label for="searchName">Genre name</label>
-    					<input type="text" class="form-control" id="searchName" name="searchName" value="${genreSearchForm.searchName}"" placeholder="searchName">
+    					<label for="searchName">Show name</label>
+    					<input type="text" class="form-control" id="searchName" name="searchName" value="" placeholder="searchName">
   					</div>
   					<button type="submit" class="btn btn-default">Search</button>
 				</form>
       		</div>
       		<div class="col-md-6">
-      			<form class="form-inline" action="<%=basePath%>/genres/create" method="GET">
-  					<button type="submit" class="btn btn-primary">Create new Genre</button>
+      			<form class="form-inline" action="<%=basePath%>/shows/create" method="GET">
+  					<button type="submit" class="btn btn-primary">Add new Show</button>
 				</form>
       		</div>
       	</div>
       	<div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <table class="table">
           	<thead>
           		<th>Id</th>
-          		<th>Genre name</th>
+          		<th>Show name</th>
+          		<th>Genre</th>
+          		<th>Seating</th>
           		<th></th>
           	</thead>
 			<tbody>
-			<c:forEach items="${result}" var="genre">
+			<c:forEach items="${result}" var="show">
 				<tr>
-					<td>${genre.id}</td>
-					<td><b><a href="<%=basePath%>/genres/${genre.id}">${genre.name}</a></b></td>
-					<td><a href="<%=basePath%>/genres/delete/${genre.id}" title="Delete record"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></a></span> </td>
+					<td>${show.id}</td>
+					<td><b><a href="<%=basePath%>/shows/${show.id}">${show.name}</a></b></td>
+					<td>${show.genre.name}</td>
+					<td>${show.seatingPlan.name}</td>
+					<td><a href="<%=basePath%>/shows/delete/${show.id}" title="Delete record"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></a></span> </td>
 				</tr>
 			</c:forEach>
 			</tbody>

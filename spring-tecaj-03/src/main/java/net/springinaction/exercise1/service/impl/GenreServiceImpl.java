@@ -44,4 +44,8 @@ public class GenreServiceImpl implements GenreService {
 		return repository.count();
 	}
 	
+	public void delete(Long id) {
+		repository.delete(id);
+	}
+	
 }
