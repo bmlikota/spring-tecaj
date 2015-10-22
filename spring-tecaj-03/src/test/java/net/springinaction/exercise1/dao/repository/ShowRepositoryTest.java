@@ -70,11 +70,23 @@ public class ShowRepositoryTest {
 		// arrange ...
 		
 		// act ...
-		List<Show> shows = showRepository.findByGenreId(1000006L);
+		List<Show> shows = showRepository.findByGenreId(1000001L);
 				
 		// assert ...
 		assertThat(shows).isNotNull();
-		assertThat(shows.size()).isGreaterThan(1);
+		assertThat(shows.size()).isEqualTo(2);
+	}
+
+	@Test
+	public void findByGenreIdOrderByNameAsc_whenMultipleRecordsAreFound() {
+		// arrange ...
+		
+		// act ...
+		List<Show> shows = showRepository.findByGenreIdOrderByNameAsc(1000001L);
+				
+		// assert ...
+		assertThat(shows).isNotNull();
+		assertThat(shows.size()).isEqualTo(2);
 	}
 	
 	@Test
@@ -88,6 +100,5 @@ public class ShowRepositoryTest {
 		assertThat(shows).isNotNull();
 		assertThat(shows.size()).isEqualTo(2);
 	}
-	
-	
+
 }

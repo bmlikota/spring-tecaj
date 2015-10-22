@@ -25,13 +25,11 @@ public class ShowServiceImpl implements ShowService {
 	ShowRepository repository;
 	
 	public Show findById(long id) {
-		//TODO: implement me
-		return null;
+		return repository.findOne(id);
 	}
 	
 	public Show save(Show show) {
-		//TODO: implement me
-		return null;
+		return repository.save(show);
 	}
 		
 	public List<Show> findAll() {

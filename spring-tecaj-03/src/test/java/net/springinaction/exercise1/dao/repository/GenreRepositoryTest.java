@@ -84,6 +84,17 @@ public class GenreRepositoryTest {
 		assertThat(genre).isNotNull();
 		assertThat(genre.getName()).isEqualTo("Commedy");
 	}
+
+	@Test
+	public void testFindByName_recordDoesNotMatch() {
+		// arrange ...
+		
+		// act ...
+		Genre genre = genreRepository.findByName("CommedyNotMatch");
+		
+		// assert ...
+		assertThat(genre).isNull();
+	}
 	
 	@Test
 	public void testFindByNameStartsWith_matchingRecordsFound() {

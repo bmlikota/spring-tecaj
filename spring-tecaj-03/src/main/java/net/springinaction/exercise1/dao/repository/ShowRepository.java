@@ -11,6 +11,10 @@ import net.springinaction.exercise1.model.Show;
 public interface ShowRepository extends JpaRepository<Show, Long>{
 
 	List<Show> findByGenreId(Long id);
+
+	List<Show> findByGenreIdAndSeatingPlanId(Long x, Long y);
+
+	List<Show> findByGenreIdOrderByNameAsc(Long x);
 	
 	@Query("SELECT DISTINCT s FROM Show s join s.performers p WHERE p.name LIKE %:name% ORDER by s.name ASC")
 	List<Show> findByPerformerName(@Param("name") String performerName);

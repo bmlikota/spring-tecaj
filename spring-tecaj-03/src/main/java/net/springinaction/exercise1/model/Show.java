@@ -24,7 +24,7 @@ public class Show {
 	@Column(name = "ID")
 	private long id;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME", length = 80, nullable = false)
 	private String name;
 	
 	@ManyToOne
