@@ -20,4 +20,11 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 		return repository.findAll();
 	}
 
+	@Override
+	public SeatingPlan findById(Long id) {
+		return repository.findOne(id);
+	}
+
+	
+
 }

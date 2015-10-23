@@ -37,10 +37,12 @@ public class ShowServiceImpl implements ShowService {
 	}
 	
 	public Show findByName (String name) {
-		//TODO: implement me
-		return null;
+		List<Show> list = repository.findByShowName(name);
+		if (list == null || list.size() == 0) {
+			return null;
+		}
+		return list.get(0);
 	}
-	
 
 	public void deleteAll() {
 		//TODO: implement me
@@ -63,12 +65,14 @@ public class ShowServiceImpl implements ShowService {
 		List<Show> result = new ArrayList<Show>();
 		if (StringUtils.hasText(showName) && !StringUtils.hasText(performerName)) {
 			//TODO: implementirati pomoću jpql koji traži ignore case i da ime sadrži ovu riječ, sortira rezultate po imenu show-a ASC
-			//result = repository.findByName(name);
+//			result = repository.findByNameStartingWithIgnoreCase(showName);
+//			result = repository.findByShowName(showName);
+			result = repository.findByNameContainsIgnoreCase(showName);
 		} else if (!StringUtils.hasText(showName) && StringUtils.hasText(performerName)) {
-			result = repository.findByPerformerName(showName);
+//			result = repository.findByPerformerName(performerName);
 		} else if (StringUtils.hasText(showName) && StringUtils.hasText(performerName)) {
 			//TODO: implementirati pomoću jpql koji traži ignore case i da ime show-a sadrži ovu riječ isto i za performerName, sortira rezultate po imenu show-a ASC
-			//result = repository.findByNameAndPerformerName(name);
+//			result = repository.findByPerformerAndShowNameAsc(showName, performerName);
 		}
 		return result;
 	}

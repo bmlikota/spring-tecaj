@@ -7,4 +7,7 @@ import net.springinaction.exercise1.model.SeatingPlan;
 public interface SeatingPlanService {
 
 	List<SeatingPlan> findAll();
+
+	SeatingPlan findById(Long id);
+
 }

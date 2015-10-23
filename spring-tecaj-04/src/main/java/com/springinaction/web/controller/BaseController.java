@@ -18,7 +18,7 @@ public abstract class BaseController {
 	 * 
 	 * @return
 	 */
-	@ModelAttribute("userFullName")
+	@ModelAttribute("userFullName") // ovo se dodaje u svaki model kontroler handlera koji ga nasljeđuju
 	public String getUserFullName(){
 	    return "Janko Strižić";
 	}

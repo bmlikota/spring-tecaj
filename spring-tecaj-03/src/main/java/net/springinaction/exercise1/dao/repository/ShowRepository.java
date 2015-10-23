@@ -19,4 +19,11 @@ public interface ShowRepository extends JpaRepository<Show, Long>{
 	@Query("SELECT DISTINCT s FROM Show s join s.performers p WHERE p.name LIKE %:name% ORDER by s.name ASC")
 	List<Show> findByPerformerName(@Param("name") String performerName);
 
+	List<Show> findByNameStartingWithIgnoreCase(String showName);
+
+	@Query("SELECT DISTINCT s FROM Show s WHERE s.name LIKE %:name% ORDER by s.name ASC")
+	List<Show> findByShowName(@Param("name") String showName);
+	
+	List<Show> findByNameContainsIgnoreCase(String showName);
+
 }

@@ -31,8 +31,12 @@
       			<form class="form-inline" action="<%=basePath%>/shows/" method="POST">
   					<div class="form-group">
     					<label for="searchName">Show name</label>
-    					<input type="text" class="form-control" id="searchName" name="searchName" value="" placeholder="searchName">
-  					</div>
+    					<input type="text" class="form-control" id="searchName" name="searchName" value="${showSearchForm.searchName}" placeholder="searchName">
+    				</div>
+<!--     				<div> -->
+<!--     					<label for="performerName">Performer name</label> -->
+<%--     					<input type="text" class="form-control" id="performerName" name="performerName" value="${showSearchForm.performerName}" placeholder="performerName"> --%>
+<!--   					</div> -->
   					<button type="submit" class="btn btn-default">Search</button>
 				</form>
       		</div>

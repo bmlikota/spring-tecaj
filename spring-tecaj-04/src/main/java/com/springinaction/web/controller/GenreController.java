@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.aspectj.weaver.tools.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,8 +61,8 @@ public class GenreController extends BaseController {
 		return "genre/genre-list";
 	}
 	
-	@RequestMapping(value="/{genreId}", method = RequestMethod.GET )
-	public final String genreDetails(@PathVariable Long genreId, final ModelMap modelMap) {
+	@RequestMapping(value="/{id}", method = RequestMethod.GET )
+	public final String genreDetails(@PathVariable(value = "id") Long genreId, final ModelMap modelMap) {
 		Genre genre = genreService.findById(genreId);
 		//TODO: handle if genre is null
 		return renderGenreDetails(new GenreForm(genre), modelMap);
@@ -80,7 +82,8 @@ public class GenreController extends BaseController {
 		modelMap.addAttribute("genreForm", new GenreForm());
 		return "genre/genre-new";
 	}
-	
+
+	//zelim da se validira genreForm prije ulaska u handler, rezultati validacije zavrse u bindingResult
 	@RequestMapping(value="/save", method = RequestMethod.POST )
 	public final String saveGenre(@Valid GenreForm genreForm, BindingResult bindingResult, ModelMap modelMap, final RedirectAttributes redirectAttributes) {
 		Map<String, String> messages = null;
@@ -106,7 +109,8 @@ public class GenreController extends BaseController {
 		modelMap.addAttribute("messages", messages);
 		return renderGenreDetails(new GenreForm(savedGenre), modelMap);
 	}
-	
+
+	//post-get pattern
 	@RequestMapping(value="/delete/{genreId}", method = RequestMethod.GET )
 	public final String delete(@PathVariable Long genreId, final ModelMap modelMap, final RedirectAttributes redirectAttributes) {
 		Map<String, String> messages = null;

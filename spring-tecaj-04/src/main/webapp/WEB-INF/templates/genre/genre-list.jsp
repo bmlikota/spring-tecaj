@@ -31,7 +31,7 @@
       			<form class="form-inline" action="<%=basePath%>/genres/" method="POST">
   					<div class="form-group">
     					<label for="searchName">Genre name</label>
-    					<input type="text" class="form-control" id="searchName" name="searchName" value="${genreSearchForm.searchName}"" placeholder="searchName">
+    					<input type="text" class="form-control" id="searchName" name="searchName" value="${genreSearchForm.searchName}" placeholder="Genre Name">
   					</div>
   					<button type="submit" class="btn btn-default">Search</button>
 				</form>

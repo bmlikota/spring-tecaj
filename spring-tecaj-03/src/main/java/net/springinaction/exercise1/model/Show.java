@@ -22,7 +22,7 @@ public class Show {
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	private long id;
+	private Long id;
 	
 	@Column(name = "NAME", length = 80, nullable = false)
 	private String name;
@@ -54,10 +54,10 @@ public class Show {
 	public void setSeatingPlan(SeatingPlan seatingPlan) {
 		this.seatingPlan = seatingPlan;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

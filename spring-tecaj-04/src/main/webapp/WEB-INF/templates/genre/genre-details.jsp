@@ -65,7 +65,7 @@
 							<td>${show.id}</td>
 							<td><b><a href="<%=basePath%>/shows/${show.id}">${show.name}</a></b></td>
 							<td>${show.seatingPlan.name}</td>
-							<td><a href="<%=basePath%>/shows/remove-genre/${show.id}/${genre.id}" title="Remove Show"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></a></span> </td>
+							<td><a href="<%=basePath%>/shows/remove-genre/${show.id}/${show.genre.id}" title="Remove Show"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></a></span> </td>
 						</tr>
 					</c:forEach>
 					</tbody>
